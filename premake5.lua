@@ -24,6 +24,8 @@ project "Hazel"
 	files {"%{prj.name}/src/**.h", "%{prj.name}/src/**.cpp"}
 	-- 包含路径
 	includedirs {
+		-- Hazel核心目录, 加入包含目录, 方便使用
+		"%{prj.name}/src",
 		-- 日志库 spdlog
 		"%{prj.name}/vendor/spdlog/include"
 	}
@@ -34,7 +36,7 @@ project "Hazel"
 		-- 运行时静态支持
 		staticruntime "On"
 		-- WinSDK版本 这个需要本地化设置 这里保持最新版本
-		systemversion "10.0"
+		systemversion "latest"
 		-- 宏定义
 		defines {
 			"HZ_BUILD_DLL", "HZ_PLATFORM_WINDOWS", "_WINDLL"
