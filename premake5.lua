@@ -16,10 +16,15 @@ project "Hazel"
 	kind "SharedLib"
 	-- 语言
 	language "C++"
+
 	-- 目标目录
 	targetdir ("bin/" .. outputdirs .. "/%{prj.name}")
 	-- 中间目录(.o)
 	objdir ("bin-int/" .. outputdirs .. "/%{prj.name}")
+
+	pchheader "hzpch.h"
+	pchsource "Hazel/src/hzpch.cpp"
+
 	-- 包含文件 ** 递归搜索标记
 	files {"%{prj.name}/src/**.h", "%{prj.name}/src/**.cpp"}
 	-- 包含路径
