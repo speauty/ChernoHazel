@@ -18,11 +18,13 @@ namespace Hazel {
 	void LayerStack::PushLayer(Layer* layer)
 	{
 		m_LayerInsert = m_Layers.emplace(m_LayerInsert, layer);
+		layer->OnAttach();
 	}
 
-	void LayerStack::PushOverlay(Layer* overlay)
+	void LayerStack::PushOverlay(Layer* layer)
 	{
-		m_Layers.emplace_back(overlay);
+		m_Layers.emplace_back(layer);
+		layer->OnAttach();
 	}
 
 	void LayerStack::PopLayer(Layer* layer)

@@ -4,3 +4,6 @@
 [submodule "Hazel/vendor/GLFW"]
 	path = Hazel/vendor/GLFW
 	url = git@github.com:speauty/glfw.git
+[submodule "Hazel/vendor/ImGui"]
+	path = Hazel/vendor/ImGui
+	url = git@github.com:TheCherno/imgui.git
