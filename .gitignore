@@ -365,3 +365,15 @@ FodyWeavers.xsd
 # bin
 bin/
 bin-int/
+
+# VS项目文件忽略
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+
+# imgui 临时配置文件
+Sandbox/imgui.ini
+
+
+Hazel/cpp.hint

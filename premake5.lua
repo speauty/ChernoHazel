@@ -2,6 +2,7 @@
 workspace "Hazel"
 	-- 架构
 	architecture "x64"
+	startproject "Sandbox"
 	-- 配置
 	configurations {"Debug", "Release", "Dist"}
 
@@ -25,6 +26,7 @@ project "Hazel"
 	kind "SharedLib"
 	-- 语言
 	language "C++"
+	staticruntime "off"
 
 	-- 目标目录
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
@@ -59,8 +61,6 @@ project "Hazel"
 	filter "system:windows"
 		-- ?方言
 		cppdialect "C++17"
-		-- 运行时静态支持
-		staticruntime "On"
 		-- WinSDK版本 这个需要本地化设置 这里保持最新版本
 		systemversion "latest"
 		-- 宏定义
@@ -78,29 +78,26 @@ project "Hazel"
 	-- 过滤器 Debug配置 仅适用于Debug
 	filter "configurations:Debug"
 		defines "HZ_DEBUG"
-		buildoptions "/MDd"
+		runtime "Debug"
 		symbols "On"
 	-- 过滤器 Release配置
 	filter "configurations:Release"
 		defines "HZ_RELEASE"
-		buildoptions "/MD"
+		runtime "Release"
 		-- 启用优化
 		optimize "On"
 	-- 过滤器 Dist配置
 	filter "configurations:Dist"
 		defines "HZ_DIST"
-		buildoptions "/MD"
+		runtime "Release"
 		optimize "On"
-
-	--[[filter {"system:windows", "configurations:Release"}
-		-- 构建选项 采用多线程
-		buildoptions "/MT"
-	--]]
 
 -- 项目 Sandbox
 project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
+	language "C++"
+	staticruntime "off"
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 	files {"%{prj.name}/src/**.h", "%{prj.name}/src/**.cpp"}
@@ -112,20 +109,19 @@ project "Sandbox"
 	links {"Hazel"}
 	filter "system:windows"
 		cppdialect "C++17"
-		staticruntime "On"
 		systemversion "10.0"
 		defines {"HZ_PLATFORM_WINDOWS"}
 	filter "configurations:Debug"
 		defines "HZ_DEBUG"
-		buildoptions "/MDd"
+		runtime "Debug"
 		symbols "On"
 	filter "configurations:Release"
 		defines "HZ_RELEASE"
-		buildoptions "/MD"
+		runtime "Release"
 		optimize "On"
 	filter "configurations:Dist"
 		defines "HZ_DIST"
-		buildoptions "/MD"
+		runtime "Release"
 		optimize "On"
 	
 		
