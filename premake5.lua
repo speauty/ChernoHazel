@@ -24,10 +24,10 @@ project "Hazel"
 	-- 位置
 	location "Hazel"
 	-- 项目类型
-	kind "SharedLib"
+	kind "StaticLib"
 	-- 语言
 	language "C++"
-	staticruntime "off"
+	staticruntime "on"
 
 	-- 目标目录
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
@@ -39,6 +39,12 @@ project "Hazel"
 
 	-- 包含文件 ** 递归搜索标记
 	files {"%{prj.name}/src/**.h", "%{prj.name}/src/**.cpp"}
+	
+	defines
+	{
+		"_CRT_SECURE_NO_WARNINGS"
+	}
+	
 	-- 包含路径
 	includedirs {
 		-- Hazel核心目录, 加入包含目录, 方便使用
@@ -81,31 +87,33 @@ project "Hazel"
 	filter "configurations:Debug"
 		defines "HZ_DEBUG"
 		runtime "Debug"
-		symbols "On"
+		symbols "on"
 	-- 过滤器 Release配置
 	filter "configurations:Release"
 		defines "HZ_RELEASE"
 		runtime "Release"
 		-- 启用优化
-		optimize "On"
+		optimize "on"
 	-- 过滤器 Dist配置
 	filter "configurations:Dist"
 		defines "HZ_DIST"
 		runtime "Release"
-		optimize "On"
+		optimize "on"
 
 -- 项目 Sandbox
 project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
-	staticruntime "off"
+	cppdialect "C++17"
+	staticruntime "on"
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 	files {"%{prj.name}/src/**.h", "%{prj.name}/src/**.cpp"}
 	includedirs {
 		"Hazel/vendor/spdlog/include",
 		"Hazel/src",
+		"Hazel/vendor",
 		"%{IncludeDir.glm}",
 	}
 	-- 链接
@@ -117,14 +125,14 @@ project "Sandbox"
 	filter "configurations:Debug"
 		defines "HZ_DEBUG"
 		runtime "Debug"
-		symbols "On"
+		symbols "on"
 	filter "configurations:Release"
 		defines "HZ_RELEASE"
 		runtime "Release"
-		optimize "On"
+		optimize "on"
 	filter "configurations:Dist"
 		defines "HZ_DIST"
 		runtime "Release"
-		optimize "On"
+		optimize "on"
 	
 		
